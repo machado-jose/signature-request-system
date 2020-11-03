@@ -1,5 +1,11 @@
 {
   "name": "signature-request-system",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "bootstrap": "^4.3.1",
+    "fastclick": "^1.0.6",
+    "font-awesome": "^4.6.3",
+    "jquery": "^2.2.4",
+    "nprogress": "^0.2.0"
+  }
 }
