@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>User:</strong>
+  <%= @solicitation.user %>
+</p>
+
+<p>
+  <strong>Document:</strong>
+  <%= @solicitation.document %>
+</p>
+
+<p>
+  <strong>Description:</strong>
+  <%= @solicitation.description %>
+</p>
+
+<%= link_to 'Edit', edit_solicitation_path(@solicitation) %> |
+<%= link_to 'Back', solicitations_path %>
