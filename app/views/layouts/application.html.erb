@@ -20,7 +20,9 @@
         <div class="col-md-3 left_col">
           <div class="left_col scroll-view">
             <div class="navbar nav_title" style="border: 0;">
-              <a href="#" class="site_title"><i class="fa fa-file"></i> <span>Signatures</span></a>
+              <%= link_to solicitations_path, class:"site_title" do %>
+                <i class="fa fa-file"></i> <span>Signatures</span>
+              <% end %>
             </div>
 
             <div class="clearfix"></div>
@@ -29,7 +31,16 @@
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
                 <ul class="nav side-menu">
-                  <li><a><i class="fa fa-edit"></i> New Socilitation</a></li>
+                  <li>
+                    <%= link_to solicitations_path do %>
+                      <i class="fa fa-home"></i> Home
+                    <% end %>
+                  </li>
+                  <li>
+                    <%= link_to new_solicitation_path do %>
+                      <i class="fa fa-edit"></i> New Socilitation
+                    <% end %>
+                  </li>
                 </ul>
               </div>
             </div>

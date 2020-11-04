@@ -1,5 +1,30 @@
-<h1>New Solicitation</h1>
+<div class="x_content">
+  <%= form_with(url: solicitations_path, model: @solicitation, local: true, class:"form-horizontal form-label-left") do |form|%>
+    <div class="item form-group">
+      <%= form.label :description, class:"col-form-label col-md-3 col-sm-3 label-align" %>
+      <div class="col-md-6 col-sm-6 ">
+        <%= form.text_field :description, class: "form-control" %>
+      </div>
+    </div>
+    <div class="item form-group">
+      <%= form.label :document, class:"col-form-label col-md-3 col-sm-3 label-align" %>
+      <div class="col-md-6 col-sm-6 ">
+        <%= form.text_field :document, class: "form-control" %>
+      </div>
+    </div>
+    <div class="item form-group">
+      <%= form.label :user, class:"col-form-label col-md-3 col-sm-3 label-align" %>
+      <div class="col-md-6 col-sm-6 ">
+        <%= form.text_field :user, class: "form-control" %>
+      </div>
+    </div>
+    <div class="ln_solid"></div>
+    <div class="item form-group row justify-content-center">
+      <div class="col-md-6 col-sm-6 offset-md-3">
+        <button type="submit" class="btn btn-success">Send</button>
+      </div>
+    </div>
 
-<%= render 'form', solicitation: @solicitation %>
+  <% end %>
 
-<%= link_to 'Back', solicitations_path %>
+</div>
