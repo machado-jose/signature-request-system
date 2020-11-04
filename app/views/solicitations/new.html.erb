@@ -1,4 +1,5 @@
 <div class="x_content">
+  <%= @solicitation.inspect %>
   <%= form_with(url: solicitations_path, model: @solicitation, local: true, class:"form-horizontal form-label-left") do |form|%>
     <div class="item form-group">
       <%= form.label :description, class:"col-form-label col-md-3 col-sm-3 label-align" %>

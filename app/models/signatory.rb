@@ -1,0 +1,2 @@
+class Signatory < ApplicationRecord
+end

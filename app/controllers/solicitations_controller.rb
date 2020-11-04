@@ -44,6 +44,6 @@ class SolicitationsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def solicitation_params
-      params.require(:solicitation).permit(:user_id, :document_id, :description)
+      params.require(:solicitation).permit(:signatory_id, :document_id, :description)
     end
 end

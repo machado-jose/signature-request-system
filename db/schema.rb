@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201103142550) do
+ActiveRecord::Schema.define(version: 20201104132449) do
 
   create_table "documents", force: :cascade do |t|
     t.string "name", null: false
@@ -19,22 +19,21 @@ ActiveRecord::Schema.define(version: 20201103142550) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "signatories", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "email", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "solicitations", force: :cascade do |t|
-    t.integer "user_id", null: false
+    t.integer "signatory_id", null: false
     t.integer "document_id", null: false
     t.string "description", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["document_id"], name: "index_solicitations_on_document_id"
-    t.index ["user_id"], name: "index_solicitations_on_user_id"
-  end
-
-  create_table "users", force: :cascade do |t|
-    t.string "first_name", null: false
-    t.string "last_name", null: false
-    t.string "email", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.index ["signatory_id"], name: "index_solicitations_on_signatory_id"
   end
 
 end
