@@ -1,31 +1,49 @@
-<div class="x_content">
-  <%= form_with(url: solicitations_path, model: @solicitation, local: true, class:"form-horizontal form-label-left", html: { multipart: true }) do |form|%>
-    <div class="item form-group">
-      <%= form.label :description, class:"col-form-label col-md-3 col-sm-3 label-align" %>
-      <div class="col-md-6 col-sm-6 ">
-        <%= form.text_field :description, class: "form-control" %>
-      </div>
-    </div>
-    <div class="item form-group">
-      <%= form.label :document, class:"col-form-label col-md-3 col-sm-3 label-align" %>
-      <div class="col-md-6 col-sm-6 ">
-        <%= form.file_field :document, class: "form-control" %>
-      </div>
-    </div>
-    <div id='signatories'>   
-      <%= form.fields_for :signatories do |signatory| %>
-        <%= render partial: "signatory_fields", locals: { f: signatory } %>  
-      <% end %>      
-        <%= link_to_add_association('Add Signatory', form, :signatories) %>
-    </div>
-
-    <div class="ln_solid"></div>
-    <div class="item form-group row justify-content-center">
-      <div class="col-md-6 col-sm-6 offset-md-3">
-        <button type="submit" class="btn btn-success">Send</button>
+<!-- page content -->
+<div class="right_col" role="main">
+  <div class="">
+    <div class="page-title">
+      <div class="title_left">
+        <h3>New Solicitation</h3>
       </div>
     </div>
 
-  <% end %>
+    <div class="clearfix"></div>
 
+    <div class="row">
+      <div class="col-md-12 col-sm-12  ">
+        <div class="x_panel">
+          <div class="x_content">
+            <%= form_with(url: solicitations_path, model: @solicitation, local: true, class:"form-horizontal form-label-left", html: { multipart: true }) do |form|%>
+              <div class="item form-group">
+                <%= form.label :description, class:"col-form-label col-md-3 col-sm-3 label-align" %>
+                <div class="col-md-6 col-sm-6 ">
+                  <%= form.text_field :description, class: "form-control" %>
+                </div>
+              </div>
+              <div class="item form-group">
+                <%= form.label :document, class:"col-form-label col-md-3 col-sm-3 label-align" %>
+                <div class="col-md-6 col-sm-6 ">
+                  <%= form.file_field :document, class: "form-control" %>
+                </div>
+              </div>
+              <div id='signatories'>   
+                <%= form.fields_for :signatories do |signatory| %>
+                  <%= render partial: "signatory_fields", locals: { f: signatory } %>  
+                <% end %>      
+                  <%= link_to_add_association('Add Signatory', form, :signatories) %>
+              </div>
+
+              <div class="ln_solid"></div>
+              <div class="item form-group row justify-content-center">
+                <div class="col-md-6 col-sm-6 offset-md-3">
+                  <button type="submit" class="btn btn-success">Send</button>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+<!-- /page content -->

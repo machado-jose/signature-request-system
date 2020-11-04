@@ -1,5 +1,60 @@
-<% if @solicitations.any? %>
-  <%= @solicitations.inspect %>
-<% else %>
-  <p>Não existe nenhuma solicitação!</p>
-<% end %>
+<!-- page content -->
+<div class="right_col" role="main">
+  <div class="">
+    <div class="page-title">
+      <div class="title_left">
+        <h3>Solicitations</h3>
+      </div>
+
+      <div class="title_right">
+        <div class="col-md-5 col-sm-5   form-group pull-right top_search">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="Search for...">
+            <span class="input-group-btn">
+              <button class="btn btn-default" type="button">Go!</button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="clearfix"></div>
+
+    <div class="row">
+      <div class="col-md-12 col-sm-12  ">
+        <div class="x_panel">
+          <% if @solicitations.any? %>
+            <table class="table table-hover">
+              <thead>
+                <tr>
+                  <th>ID</th>
+                  <th>Description</th>
+                  <th>Filename</th>
+                  <th>Action</th>
+                </tr>
+              </thead>
+              <tbody>
+              <% @solicitations.each do |solicitation| %>
+                <tr>
+                  <th scope="row"><%= solicitation.id %></th>
+                  <td><%= solicitation.description %></td>
+                  <td><%= solicitation.document.original_filename %></td>
+                  <td style="width=100px;">
+                    <%= link_to solicitation_path(solicitation), method: :delete, 
+                        class: "btn btn-danger btn-circle btn-sm", data: {confirm: 'Are you sure?'} do %>
+                      <i class="fa fa-trash"></i>
+                    <% end %>
+                  </td>
+                </tr>
+              <% end %>
+              </tbody>
+            </table>
+          <% else %>
+            <p>Não existe nenhuma solicitação!</p>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /page content -->
