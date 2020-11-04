@@ -15,4 +15,5 @@
 //= require bootstrap/dist/js/bootstrap.bundle.min
 //= require fastclick/lib/fastclick
 //= require nprogress/nprogress
+//= require cocoon
 //= require custom

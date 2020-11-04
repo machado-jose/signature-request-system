@@ -20,20 +20,20 @@ ActiveRecord::Schema.define(version: 20201104132449) do
   end
 
   create_table "signatories", force: :cascade do |t|
+    t.integer "solicitation_id", null: false
     t.string "name", null: false
     t.string "email", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["solicitation_id"], name: "index_signatories_on_solicitation_id"
   end
 
   create_table "solicitations", force: :cascade do |t|
-    t.integer "signatory_id", null: false
     t.integer "document_id", null: false
     t.string "description", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["document_id"], name: "index_solicitations_on_document_id"
-    t.index ["signatory_id"], name: "index_solicitations_on_signatory_id"
   end
 
 end

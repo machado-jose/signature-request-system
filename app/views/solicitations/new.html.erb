@@ -1,5 +1,4 @@
 <div class="x_content">
-  <%= @solicitation.inspect %>
   <%= form_with(url: solicitations_path, model: @solicitation, local: true, class:"form-horizontal form-label-left") do |form|%>
     <div class="item form-group">
       <%= form.label :description, class:"col-form-label col-md-3 col-sm-3 label-align" %>
@@ -8,17 +7,18 @@
       </div>
     </div>
     <div class="item form-group">
-      <%= form.label :document, class:"col-form-label col-md-3 col-sm-3 label-align" %>
+      <%= form.label :document_id, class:"col-form-label col-md-3 col-sm-3 label-align" %>
       <div class="col-md-6 col-sm-6 ">
-        <%= form.text_field :document, class: "form-control" %>
+        <%= form.text_field :document_id, class: "form-control" %>
       </div>
     </div>
-    <div class="item form-group">
-      <%= form.label :user, class:"col-form-label col-md-3 col-sm-3 label-align" %>
-      <div class="col-md-6 col-sm-6 ">
-        <%= form.text_field :user, class: "form-control" %>
-      </div>
+    <div id='signatories'>   
+      <%= form.fields_for :signatories do |signatory| %>
+        <%= render partial: "signatory_fields", locals: { f: signatory } %>  
+      <% end %>      
+        <%= link_to_add_association('Add Signatory', form, :signatories) %>
     </div>
+
     <div class="ln_solid"></div>
     <div class="item form-group row justify-content-center">
       <div class="col-md-6 col-sm-6 offset-md-3">

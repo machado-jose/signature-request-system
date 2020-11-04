@@ -21,11 +21,11 @@ class SolicitationsController < ApplicationController
   # POST /solicitations.json
   def create
     @solicitation = Solicitation.new(solicitation_params)
-    if @solicitation.save!
-      redirect_to solicitations_path, notice: 'Solicitation was saved with success!'
-    else
-      redirect_to solicitations_path, notice: 'Request submission failed!'
-    end
+    # if @solicitation.save!
+    #   redirect_to solicitations_path, notice: 'Solicitation was saved with success!'
+    # else
+    #   redirect_to solicitations_path, notice: 'Request submission failed!'
+    # end
   end
 
   # DELETE /solicitations/1
@@ -44,6 +44,14 @@ class SolicitationsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def solicitation_params
-      params.require(:solicitation).permit(:signatory_id, :document_id, :description)
+      params.require(:solicitation).permit(
+        :document_id, 
+        :description, 
+        signatories_attributes: [
+          :id, 
+          :name, 
+          :email, 
+          :_destroy]
+          )
     end
 end
