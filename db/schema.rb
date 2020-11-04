@@ -10,14 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201104132449) do
-
-  create_table "documents", force: :cascade do |t|
-    t.string "name", null: false
-    t.string "filename", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
+ActiveRecord::Schema.define(version: 20201104173900) do
 
   create_table "signatories", force: :cascade do |t|
     t.integer "solicitation_id", null: false
@@ -29,11 +22,13 @@ ActiveRecord::Schema.define(version: 20201104132449) do
   end
 
   create_table "solicitations", force: :cascade do |t|
-    t.integer "document_id", null: false
     t.string "description", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["document_id"], name: "index_solicitations_on_document_id"
+    t.string "document_file_name"
+    t.string "document_content_type"
+    t.integer "document_file_size"
+    t.datetime "document_updated_at"
   end
 
 end

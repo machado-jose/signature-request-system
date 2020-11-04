@@ -1,3 +1,3 @@
 class Signatory < ApplicationRecord
-  has_many :solicitations
+  belongs_to :solicitation
 end

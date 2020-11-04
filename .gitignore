@@ -24,3 +24,6 @@
 
 # Ignore Templates Gentelella
 /public/gentelella
+
+# Ignore Storage
+/storage
