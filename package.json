@@ -6,6 +6,7 @@
     "fastclick": "^1.0.6",
     "font-awesome": "^4.6.3",
     "jquery": "^2.2.4",
-    "nprogress": "^0.2.0"
+    "nprogress": "^0.2.0",
+    "signature_pad": "^3.0.0-beta.4"
   }
 }
