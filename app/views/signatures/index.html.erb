@@ -1,5 +1,5 @@
 <!-- Button trigger modal -->
-<a href="#" class="btn btn-primary">Download Document</a>
+<%= link_to "Download Document", document_download_signature_path(@signatory[:solicitation_id]), class:"btn btn-primary" %>
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signature-modal">Sign</button>
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#refuse-sign-modal">Refuse to Sign</button>
 
