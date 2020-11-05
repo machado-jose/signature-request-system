@@ -1,11 +1,10 @@
 class SignaturesController < ApplicationController
+
   def index
     if Signatory.exists?(params[:signatory_id])
       @signatory = Signatory.find(params[:signatory_id])
     else
-      # Error Page
-      puts ">>>>>>>>>>>>>>>> Erro Index Sign"
-      render :index
+      render :error
     end 
   end
 
@@ -15,5 +14,8 @@ class SignaturesController < ApplicationController
     :filename => download_file.document_file_name,
     :type => download_file.document_content_type,
     :disposition => 'attachment'
+  end
+
+  def error
   end
 end
