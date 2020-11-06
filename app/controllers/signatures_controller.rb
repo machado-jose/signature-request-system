@@ -69,4 +69,17 @@ class SignaturesController < ApplicationController
        :signatory_id
       )
   end
+
+  def verify_solicitation_authenticity(signatory_id, solicitation_id)
+    begin
+      signatory = Signatory.find_by(id: signatory_id)
+      solicitation = Solicitation.find_by(id: solicitation_id)
+      unless signatory[:solicitation_id] == solicitation_id
+        ## throw exception
+      end
+      true
+    rescue => exception
+      
+    end
+  end
 end

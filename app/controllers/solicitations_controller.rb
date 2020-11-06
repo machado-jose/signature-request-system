@@ -19,6 +19,7 @@ class SolicitationsController < ApplicationController
   def create
     @solicitation = Solicitation.new(solicitation_params)
     if @solicitation.save!
+      create_signatures(@solicitation.id)
       redirect_to solicitations_path, flash: {notice_success: 'Solicitation was saved with success!'}
     else
       redirect_to solicitations_path, flash: { notice_danger: 'Request submission failed!'}
@@ -33,21 +34,30 @@ class SolicitationsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_solicitation
-      @solicitation = Solicitation.find(params[:id])
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_solicitation
+    @solicitation = Solicitation.find(params[:id])
+  end
 
-    # Only allow a list of trusted parameters through.
-    def solicitation_params
-      params.require(:solicitation).permit(
-        :description,
-        :document, 
-        signatories_attributes: [
-          :id, 
-          :name, 
-          :email, 
-          :_destroy]
-          )
+  # Only allow a list of trusted parameters through.
+  def solicitation_params
+    params.require(:solicitation).permit(
+      :description,
+      :document, 
+      signatories_attributes: [
+        :id, 
+        :name, 
+        :email, 
+        :_destroy]
+        )
+  end
+
+  def create_signatures(solicitation_id)
+    Signatory.where(solicitation_id: solicitation_id).each do |signatory|
+      new_signature = Signature.new 
+      new_signature[:solicitation_id] = solicitation_id
+      new_signature[:signatory_id] = signatory.id
+      new_signature.save!(validate: false)
     end
+  end
 end
