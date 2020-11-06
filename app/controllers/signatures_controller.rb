@@ -27,4 +27,8 @@ class SignaturesController < ApplicationController
 
   def error
   end
+
+  def submit
+    console
+  end
 end
