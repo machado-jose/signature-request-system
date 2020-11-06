@@ -15,7 +15,4 @@ Rails.application.config.assets.paths << Rails.root.join('node_modules')
 Rails.application.config.assets.precompile += %w( signature_template.css signature_template.js signatures.js )
 
 # lib/assets
-Rails.application.config.assets.precompile += %w( custom.js custom.css custom_signature_pad.js )
-
-# vendor/assets
-Rails.application.config.assets.precompile += %w( app_signature_pad.js )
+Rails.application.config.assets.precompile += %w( custom.js custom.css custom_signature.js )

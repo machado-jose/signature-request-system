@@ -2,4 +2,4 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 //= require signature_pad/dist/signature_pad.umd
-//= require custom_signature_pad
+//= require custom_signature
