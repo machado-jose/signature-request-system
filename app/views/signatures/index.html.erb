@@ -1,5 +1,16 @@
+<!-- Notice error-->
+<% if notice %>
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <%= notice %>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+<% end %>
+<!-- End Notice error-->
+
 <!-- Button trigger modal -->
-<%= link_to "Download Document", document_download_signature_path(@signatory[:solicitation_id]), class:"btn btn-primary" %>
+<%= link_to "Download Document", document_download_signature_path(@signatory[:id], @signatory[:solicitation_id]), class:"btn btn-primary" %>
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signature-modal">Sign</button>
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#refuse-sign-modal">Refuse to Sign</button>
 
