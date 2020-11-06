@@ -2,13 +2,11 @@ class SolicitationsController < ApplicationController
   before_action :set_solicitation, only: [:show, :destroy]
 
   # GET /solicitations
-  # GET /solicitations.json
   def index
     @solicitations = Solicitation.all
   end
 
   # GET /solicitations/1
-  # GET /solicitations/1.json
   def show
   end
 
@@ -18,7 +16,6 @@ class SolicitationsController < ApplicationController
   end
 
   # POST /solicitations
-  # POST /solicitations.json
   def create
     @solicitation = Solicitation.new(solicitation_params)
     if @solicitation.save!
@@ -29,7 +26,6 @@ class SolicitationsController < ApplicationController
   end
 
   # DELETE /solicitations/1
-  # DELETE /solicitations/1.json
   def destroy
     @solicitation.destroy
     

@@ -22,15 +22,15 @@ ActiveRecord::Schema.define(version: 20201106172733) do
   end
 
   create_table "signatures", force: :cascade do |t|
-    t.integer "document_id", null: false
+    t.integer "solicitation_id", null: false
     t.integer "signatory_id", null: false
     t.boolean "is_signed", default: false
     t.boolean "denied", default: false
     t.text "justification"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["document_id"], name: "index_signatures_on_document_id"
     t.index ["signatory_id"], name: "index_signatures_on_signatory_id"
+    t.index ["solicitation_id"], name: "index_signatures_on_solicitation_id"
   end
 
   create_table "solicitations", force: :cascade do |t|

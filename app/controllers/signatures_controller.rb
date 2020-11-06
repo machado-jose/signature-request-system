@@ -6,8 +6,18 @@ class SignaturesController < ApplicationController
     unless @signatory
       render :error
     end
+    # New signature
+    @signature = Signature.new
+    @signature.signatory_id = @signatory.id
 
-    @signatory
+    begin
+      @signature.solicitation_id = Solicitation.find(@signatory.id).id
+    rescue ActiveRecord::RecordNotFound => exception
+      puts "[X] Error in signatures#index: #{exception}"
+      render :error
+    end
+
+    @signature
   end
 
   def download_file
@@ -31,12 +41,11 @@ class SignaturesController < ApplicationController
   def submit
     # Creation Fase
     params_signatory = get_user_params
-    puts params_signatory
     console
   end
 
   private
   def get_user_params
-    params.permit(:signature_image, :justification_denial)
+    params.require(:signature).permit(:signature_image, :justification)
   end
 end
