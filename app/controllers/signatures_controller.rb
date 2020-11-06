@@ -1,17 +1,8 @@
 class SignaturesController < ApplicationController
 
   def index
-    @signatory = Signatory.find_by(id: params[:signatory_id])
-    
-    unless @signatory
-      render :error
-    end
-    # New signature
-    @signature = Signature.new
-    @signature.signatory_id = @signatory.id
-
     begin
-      @signature.solicitation_id = Solicitation.find(@signatory.id).id
+      @signature = Signature.find(params[:signature_id])
     rescue ActiveRecord::RecordNotFound => exception
       puts "[X] Error in signatures#index: #{exception}"
       render :error
@@ -31,7 +22,7 @@ class SignaturesController < ApplicationController
 
     rescue ActionController::MissingFile, ActiveRecord::RecordNotFound => exception
       puts "[X] Error in signatures#download_file: #{exception}"
-      redirect_to signature_path(params[:signatory_id]), notice: 'Error while downloading. Send an email to the Call Center for any clarification'
+      redirect_to signature_path(params[:signature_id]), notice: 'Error while downloading. Send an email to the Call Center for any clarification'
     end
   end
 

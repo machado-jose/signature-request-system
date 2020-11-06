@@ -10,7 +10,7 @@
 <!-- End Notice error-->
 
 <!-- Button trigger modal -->
-<%= link_to "Download Document", document_download_signature_path(@signature[:signatory_id], @signature[:solicitation_id]), class:"btn btn-primary" %>
+<%= link_to "Download Document", document_download_signature_path(@signature[:id], get_solicitation_id), class:"btn btn-primary" %>
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signature-modal">Sign</button>
 <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#denial-sign-modal">Deny to Sign</button>
 
