@@ -40,12 +40,33 @@ class SignaturesController < ApplicationController
 
   def submit
     # Creation Fase
-    params_signatory = get_user_params
-    console
+    params_signatory = get_signature_params
+    # Verification
+    if params_signatory[:signature_image].empty? ^ params_signatory[:justification].empty?
+      @signature = Signature.new
+      unless params_signatory[:signature_image].empty?
+
+      else
+        # Signature Denied
+        @signature.denied = true
+        @signature.justification = params_signatory[:justification]
+        puts ">>>>>>>>>>>>>>> #{@signature}"
+
+        ## Needs to test if signatory and solicitation are valide
+      end
+
+    else
+      render :error
+    end
+
   end
 
   private
-  def get_user_params
-    params.require(:signature).permit(:signature_image, :justification)
+  def get_signature_params
+    params.require(:signature).permit(:signature_image,
+       :justification,
+       :solicitation_id, 
+       :signatory_id
+      )
   end
 end

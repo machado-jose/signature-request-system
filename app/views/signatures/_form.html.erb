@@ -1,5 +1,7 @@
 <%= form_with(url: signature_submit_path, model: @signature, local: true, class:"form-horizontal form-label-left", html: { multipart: true }) do |form|%>
   <%= form.hidden_field :signature_image, :id => 'signature-image' %>
   <%= form.hidden_field :justification, :id => 'justification' %>
+  <%= form.hidden_field :solicitation_id %>
+  <%= form.hidden_field :signatory_id %>
   <%= form.submit :id => 'submit-signature', hidden:'true' %>
 <% end %>
