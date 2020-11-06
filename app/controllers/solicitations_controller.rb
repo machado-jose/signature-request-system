@@ -22,9 +22,9 @@ class SolicitationsController < ApplicationController
   def create
     @solicitation = Solicitation.new(solicitation_params)
     if @solicitation.save!
-      redirect_to solicitations_path, notice: 'Solicitation was saved with success!'
+      redirect_to solicitations_path, flash: {notice_success: 'Solicitation was saved with success!'}
     else
-      redirect_to solicitations_path, notice: 'Request submission failed!'
+      redirect_to solicitations_path, flash: { notice_danger: 'Request submission failed!'}
     end
   end
 

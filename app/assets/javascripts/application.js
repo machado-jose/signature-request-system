@@ -17,3 +17,4 @@
 //= require nprogress/nprogress
 //= require cocoon
 //= require custom
+//= require bootstrap-growl-ifightcrime/jquery.bootstrap-growl.min

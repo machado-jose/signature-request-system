@@ -73,6 +73,30 @@
 
     <%= javascript_include_tag 'application' %>
 
+    <% if flash %>
+      <% flash.each do |key, value| %>
+        <% if key == 'notice_success' %>
+          <%= javascript_tag do %>
+            $.bootstrapGrowl("<%= value %>", {
+              type: 'success', // (null, 'info', 'danger', 'success')
+              align: 'right', // ('left', 'right', or 'center')
+              allow_dismiss: true, // If true then will display a cross to close the popup.
+              stackup_spacing: 10 // spacing between consecutively stacked growls.
+            });
+          <% end %>
+        <% elsif key == 'notice_danger' %>
+          <%= javascript_tag do %>
+            $.bootstrapGrowl("<%= value %>", {
+              type: 'danger', // (null, 'info', 'danger', 'success')
+              align: 'right', // ('left', 'right', or 'center')
+              allow_dismiss: true, // If true then will display a cross to close the popup.
+              stackup_spacing: 10 // spacing between consecutively stacked growls.
+            });
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
+
   </body>
 </html>
 
