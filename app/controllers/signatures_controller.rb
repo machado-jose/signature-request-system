@@ -1,13 +1,11 @@
 class SignaturesController < ApplicationController
 
   def index
-    begin
-      @signature = Signature.find(params[:signature_id])
-    rescue ActiveRecord::RecordNotFound => exception
+    @signature = Signature.signature_valid(params[:signature_id])
+    if @signature.blank?
       puts "[X] Error in signatures#index: #{exception}"
       render :error
     end
-
     @signature
   end
 
@@ -34,17 +32,6 @@ class SignaturesController < ApplicationController
     params_signatory = get_signature_params
     # Verification
     if params_signatory[:signature_image].empty? ^ params_signatory[:justification].empty?
-      @signature = Signature.new
-      unless params_signatory[:signature_image].empty?
-
-      else
-        # Signature Denied
-        @signature.denied = true
-        @signature.justification = params_signatory[:justification]
-        puts ">>>>>>>>>>>>>>> #{@signature}"
-
-        ## Needs to test if signatory and solicitation are valide
-      end
 
     else
       render :error
@@ -61,16 +48,7 @@ class SignaturesController < ApplicationController
       )
   end
 
-  def verify_solicitation_authenticity(signatory_id, solicitation_id)
-    begin
-      signatory = Signatory.find_by(id: signatory_id)
-      solicitation = Solicitation.find_by(id: solicitation_id)
-      unless signatory[:solicitation_id] == solicitation_id
-        ## throw exception
-      end
-      true
-    rescue => exception
-      
-    end
+  def verify_authenticity_link
+    
   end
 end
