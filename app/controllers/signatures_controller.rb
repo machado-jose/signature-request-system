@@ -29,6 +29,14 @@ class SignaturesController < ApplicationController
   end
 
   def submit
+    # Creation Fase
+    params_signatory = get_user_params
+    puts params_signatory
     console
+  end
+
+  private
+  def get_user_params
+    params.permit(:signature_image, :justification_denial)
   end
 end

@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  document: one
+  signatory: one
+  is_signed: false
+  denied: false
+  justification: MyText
+
+two:
+  document: two
+  signatory: two
+  is_signed: false
+  denied: false
+  justification: MyText
