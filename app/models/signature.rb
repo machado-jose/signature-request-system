@@ -1,8 +1,8 @@
 class Signature < ApplicationRecord
-  belongs_to :document
+  belongs_to :solicitation
   belongs_to :signatory
 
-  scope :signature_valid, -> (signature_id) {
-    where(:id => 1, :is_signed => false, :denied => false)[0]
-  }
+  has_attached_file :signature_image
+  validates_attachment_content_type :signature_image, content_type: /\Aimage\/.*\z/
+
 end

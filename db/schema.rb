@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20201106172733) do
+ActiveRecord::Schema.define(version: 20201106223844) do
 
   create_table "signatories", force: :cascade do |t|
     t.integer "solicitation_id", null: false
@@ -29,6 +29,10 @@ ActiveRecord::Schema.define(version: 20201106172733) do
     t.text "justification"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "signature_image_file_name"
+    t.string "signature_image_content_type"
+    t.integer "signature_image_file_size"
+    t.datetime "signature_image_updated_at"
     t.index ["signatory_id"], name: "index_signatures_on_signatory_id"
     t.index ["solicitation_id"], name: "index_signatures_on_solicitation_id"
   end

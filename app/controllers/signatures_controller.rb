@@ -1,9 +1,8 @@
 class SignaturesController < ApplicationController
 
   def index
-    @signature = Signature.signature_valid(params[:signature_id])
+    @signature = signature_valid(params[:signature_id])
     if @signature.blank?
-      puts "[X] Error in signatures#index: #{exception}"
       render :error
     end
     @signature
@@ -27,12 +26,28 @@ class SignaturesController < ApplicationController
   def error
   end
 
+  def success
+  end
+
   def submit
     # Creation Fase
-    params_signatory = get_signature_params
+    params_signature = get_signature_params
     # Verification
-    if params_signatory[:signature_image].empty? ^ params_signatory[:justification].empty?
-
+    if params_signature[:signature_image].empty? ^ params_signature[:justification].empty?
+      # Checks if the datas weren't manipulated
+      @signature = check_datas(params_signature[:id], params_signature[:solicitation_id])
+      if @signature.blank?
+        render :error
+      end
+      unless params_signature[:signature_image].empty?
+        signature_image = Paperclip.io_adapters.for(params_signature[:signature_image])
+        signature_image.original_filename = "signature_img_solicitation_#{params_signature[:solicitation_id]}_signature_#{params_signature[:id]}.png"
+        @signature.update!(
+          :is_signed => true,
+          :signature_image => signature_image
+        )
+        redirect_to signature_success_path
+      end
     else
       render :error
     end
@@ -41,14 +56,19 @@ class SignaturesController < ApplicationController
 
   private
   def get_signature_params
-    params.require(:signature).permit(:signature_image,
+    params.require(:signature).permit(
+       :signature_image,
        :justification,
        :solicitation_id, 
-       :signatory_id
+       :id
       )
   end
 
-  def verify_authenticity_link
-    
+  def signature_valid(signature_id)
+    Signature.where(:id => signature_id, :is_signed => false, :denied => false)[0]
+  end
+
+  def check_datas(signature_id, solicitation_id)
+    Signature.where(:id => signature_id, :solicitation_id => solicitation_id)[0]
   end
 end
