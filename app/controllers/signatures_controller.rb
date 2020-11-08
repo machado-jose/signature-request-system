@@ -45,34 +45,16 @@ class SignaturesController < ApplicationController
   end
 
   def submit
-    # Creation Fase
     params_signature = get_signature_params
-    # Verification
-    if params_signature[:signature_image].empty? ^ params_signature[:justification].empty?
-      # Checks if the datas weren't manipulated
-      @signature = check_datas(params_signature[:id], params_signature[:solicitation_id])
-      if @signature.blank?
-        redirect_to signature_error_path
-      end
-      unless params_signature[:signature_image].empty?
-
-        signature_image = Paperclip.io_adapters.for(params_signature[:signature_image])
-        signature_image.original_filename = "signature_img_solicitation_#{params_signature[:solicitation_id]}_signature_#{params_signature[:id]}.png"
-        @signature.update!(
-          :is_signed => true,
-          :signature_image => signature_image
-        )
-
-        redirect_to signature_success_path(
-          signature_image_filename: @signature.signature_image_file_name,
-          solicitation_id: params_signature[:solicitation_id]
-        )
-
-      end
+    respost = SignatureServices::UpdateSignatureValidation.new(params_signature).call
+    if respost.success?
+      redirect_to signature_success_path(
+        signature_image_filename: respost.signature.signature_image_file_name,
+        solicitation_id: params_signature[:solicitation_id]
+      )
     else
       redirect_to signature_error_path
     end
-
   end
 
   private
@@ -88,10 +70,6 @@ class SignaturesController < ApplicationController
 
   def signature_valid(signature_id)
     Signature.where(:id => signature_id, :is_signed => false, :denied => false)[0]
-  end
-
-  def check_datas(signature_id, solicitation_id)
-    Signature.where(:id => signature_id, :solicitation_id => solicitation_id)[0]
   end
 
   def download_file(path, filename, content)
