@@ -28,8 +28,9 @@
               <thead>
                 <tr>
                   <th>ID</th>
-                  <th>Description</th>
                   <th>Filename</th>
+                  <th>Status</th>
+                  <th>Created at</th>
                   <th>Action</th>
                 </tr>
               </thead>
@@ -37,9 +38,14 @@
               <% @solicitations.each do |solicitation| %>
                 <tr>
                   <th scope="row"><%= solicitation.id %></th>
-                  <td><%= solicitation.description %></td>
                   <td><%= solicitation.document.original_filename %></td>
+                  <td><%= get_solicitation_status(solicitation) %></td>
+                  <td><%= solicitation.created_at %></td>
                   <td style="width=100px;">
+                    <%= link_to '#', method: :get, 
+                        class: "btn btn-primary btn-circle btn-sm" do %>
+                      <i class="fa fa-eye"></i>
+                    <% end %>
                     <%= link_to solicitation_path(solicitation), method: :delete, 
                         class: "btn btn-danger btn-circle btn-sm", data: {confirm: 'Are you sure?'} do %>
                       <i class="fa fa-trash"></i>
