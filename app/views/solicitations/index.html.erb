@@ -53,6 +53,11 @@
             <p>Não existe nenhuma solicitação!</p>
           <% end %>
         </div>
+        <% if @solicitations.any? %>
+          <div class="d-flex justify-content-center">
+            <%= paginate @solicitations %>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>

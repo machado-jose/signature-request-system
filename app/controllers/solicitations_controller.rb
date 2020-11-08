@@ -3,7 +3,7 @@ class SolicitationsController < ApplicationController
 
   # GET /solicitations
   def index
-    @solicitations = Solicitation.all
+    @solicitations = Solicitation.all.page params[:page]
   end
 
   # GET /solicitations/1
