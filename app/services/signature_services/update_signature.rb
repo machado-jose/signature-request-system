@@ -1,5 +1,5 @@
 module SignatureServices
-  class UpdateSignatureValidation
+  class UpdateSignature
     def initialize(params)
       @signature_image = params[:signature_image]
       @justification = params[:justification]
@@ -8,16 +8,35 @@ module SignatureServices
     end
 
     def call
+      # Just one field must have information
       if @signature_image.empty? ^ @justification.empty?
+        # Checks whether the signature request exists from the information given
         signature = signature_exists?
+        # Checks if the signature request has already been completed
         if signature_is_closed?(signature)
           return handle_error('UpdateSignatureValidation#call: Signature has already been completed')
         end
+        # Update signature
         unless @signature_image.empty?
-          return SignatureServices::UploadSignature.new(@signature_image, signature).call
+          return SignatureServices::UploadSignatureImage.new(@signature_image, signature).call
+        else 
+          begin
+            signature.update!(
+              :justification => @justification,
+              :denied => true
+            )
+            OpenStruct.new({
+              success?: true, 
+              signature: signature, 
+              status: 'denied'
+            })
+          rescue => exception
+            puts "[X] UpdateSignatureValidation#call: #{exception.message}"
+            handle_error('UpdateSignatureValidation#call: Or Signature Image field or justification field must filled.')
+          end
         end
       else
-        handle_error('UpdateSignatureValidation#call: Or signature_image field or justification field must filled.')
+        handle_error('UpdateSignatureValidation#call: Or Signature Image field or justification field must filled.')
       end
     end
     

@@ -9,7 +9,6 @@ class SignaturesController < ApplicationController
   end
 
   def download_document
-    puts ">>>>>>>>>>>>>>> #{params}"
     begin
       download_document = Solicitation.find(params[:solicitation_id])
       download_file(
@@ -60,14 +59,18 @@ class SignaturesController < ApplicationController
 
   def submit
     params_signature = get_signature_params
-    respost = SignatureServices::UpdateSignatureValidation.new(params_signature).call
+    respost = SignatureServices::UpdateSignature.new(params_signature).call
     if respost.success?
-      redirect_to signature_success_path(
-        solicitation_id: params_signature[:solicitation_id],
-        signature_image_filename: respost.signature.signature_image_file_name
-      )
+      if respost.status == 'accept'
+        redirect_to signature_success_path(
+          solicitation_id: params_signature[:solicitation_id],
+          signature_image_filename: respost.signature.signature_image_file_name
+        )
+      else
+        redirect_to signature_success_path
+      end
     else
-      redirect_to signature_error_path, notice: respost.error.split(': ')[1] + '. Contact the Call Center.'
+      redirect_to signature_error_path, notice: respost.error.split(': ')[1] + ' Contact the Call Center.'
     end
   end
 

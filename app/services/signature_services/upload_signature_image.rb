@@ -1,5 +1,5 @@
 module SignatureServices
-  class UploadSignature
+  class UploadSignatureImage
     def initialize(signature_image, signature)
       @signature_image = signature_image
       @signature = signature
@@ -13,7 +13,11 @@ module SignatureServices
           :is_signed => true,
           :signature_image => signature_image
         )
-        OpenStruct.new({success?: true, signature: @signature})
+        OpenStruct.new({
+          success?: true, 
+          signature: @signature,
+          status: 'accept'
+        })
       rescue => exception
         OpenStruct.new({success?: false, error: 'UploadSignature#call: Failed to Update Signature'})
       end
