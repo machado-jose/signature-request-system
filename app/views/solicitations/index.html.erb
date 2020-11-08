@@ -39,10 +39,10 @@
                 <tr>
                   <th scope="row"><%= solicitation.id %></th>
                   <td><%= solicitation.document.original_filename %></td>
-                  <td><%= get_solicitation_status(solicitation) %></td>
+                  <td><%= get_solicitation_status(solicitation.id) %></td>
                   <td><%= solicitation.created_at %></td>
                   <td style="width=100px;">
-                    <%= link_to '#', method: :get, 
+                    <%= link_to solicitation_path(solicitation), method: :get, 
                         class: "btn btn-primary btn-circle btn-sm" do %>
                       <i class="fa fa-eye"></i>
                     <% end %>

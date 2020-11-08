@@ -1,19 +1,39 @@
-<p id="notice"><%= notice %></p>
+<!-- page content -->
+<div class="right_col" role="main">
+  <div class="">
+    <div class="page-title">
+      <div class="title_left">
+        <h3>Solicitation</h3>
+      </div>
+    </div>
 
-<p>
-  <strong>User:</strong>
-  <%= @solicitation.user %>
-</p>
+    <div class="clearfix"></div>
 
-<p>
-  <strong>Document:</strong>
-  <%= @solicitation.document %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @solicitation.description %>
-</p>
-
-<%= link_to 'Edit', edit_solicitation_path(@solicitation) %> |
-<%= link_to 'Back', solicitations_path %>
+    <div class="row">
+      <div class="col-md-12 col-sm-12  ">
+        <div class="x_panel">
+          <table class="table table-hover">
+            <thead>
+              <tr>
+                <th>Signatory</th>
+                <th>URL</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+            <% get_signatories(@solicitation.id).each do |signatory| %>
+              <% signature = get_signature(signatory.id) %>
+              <tr>
+                <td><%= signatory.name %></td>
+                <td>URL...</td>
+                <td><%= get_signature_status(signature) %></td>
+              </tr>
+            <% end %>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /page content -->

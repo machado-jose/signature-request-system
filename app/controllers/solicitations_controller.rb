@@ -8,6 +8,7 @@ class SolicitationsController < ApplicationController
 
   # GET /solicitations/1
   def show
+    @solicitation = Solicitation.find(params[:id])
   end
 
   # GET /solicitations/new
