@@ -1,5 +1,4 @@
 class SignaturesController < ApplicationController
-  attr_accessor :signature_image_path, :signature_file_name, :signature_content_type
 
   def index
     @signature = signature_valid(params[:signature_id])
@@ -10,6 +9,7 @@ class SignaturesController < ApplicationController
   end
 
   def download_document
+    puts ">>>>>>>>>>>>>>> #{params}"
     begin
       download_document = Solicitation.find(params[:solicitation_id])
       download_file(
@@ -18,14 +18,24 @@ class SignaturesController < ApplicationController
         download_document.document_content_type
       )
     rescue ActionController::MissingFile, ActiveRecord::RecordNotFound => exception
-      puts "[X] Error in signatures#download_file: #{exception}"
-      redirect_to signature_path(params[:signature_id]), notice: 'Error while downloading. Send an email to the Call Center for any clarification'
+      if params[:signature_image_filename].blank?
+        puts "[X] Error in signatures#download_file: #{exception}"
+        redirect_to signature_path(params[:solicitation_id]), notice: 'Error while downloading. Send an email to the Call Center for any clarification'
+      else
+        puts "[X] Error in signatures#download_file: #{exception}"
+        redirect_to signature_success_path(
+        solicitation_id: params[:solicitation_id],
+        signature_image_filename: params[:signature_image_filename]
+        ), 
+        notice: 'Error while downloading. Send an email to the Call Center for any clarification'
+      end
+      
     end
   end
 
   def download_signature_image
     begin
-      download_signature = Signature.find_by(signature_image_file_name: params[:signature_image_filename]+'.'+params[:format])
+      download_signature = Signature.find_by(signature_image_file_name: params[:signature_image_filename])
 
       download_file(
         download_signature.signature_image.path,
@@ -34,7 +44,11 @@ class SignaturesController < ApplicationController
       )
     rescue ActionController::MissingFile, ActiveRecord::RecordNotFound => exception
       puts "[X] Error in signatures#download_file: #{exception}"
-      redirect_to signature_success(params[:signature_image_filename]), notice: 'Error while downloading. Send an email to the Call Center for any clarification'
+      redirect_to signature_success_path(
+        solicitation_id: params[:solicitation_id],
+        signature_image_filename: params[:signature_image_filename]
+        ), 
+        notice: 'Error while downloading. Send an email to the Call Center for any clarification'
     end
   end
 
@@ -49,8 +63,8 @@ class SignaturesController < ApplicationController
     respost = SignatureServices::UpdateSignatureValidation.new(params_signature).call
     if respost.success?
       redirect_to signature_success_path(
-        signature_image_filename: respost.signature.signature_image_file_name,
-        solicitation_id: params_signature[:solicitation_id]
+        solicitation_id: params_signature[:solicitation_id],
+        signature_image_filename: respost.signature.signature_image_file_name
       )
     else
       redirect_to signature_error_path, notice: respost.error.split(': ')[1] + '. Contact the Call Center.'
