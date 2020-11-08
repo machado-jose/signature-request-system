@@ -3,7 +3,12 @@
   <!-- page content -->
   <div class="col-md-12">
     <div class="col-middle">
-      <h2>Sorry but we couldn't find this page. This link should no longer be valid.</h2>
+      <% if notice %>
+        <h2>Sorry but we couldn't find this page.</h2>
+        <h4> <%= notice %> </h4>
+      <% else %>
+        <h2>Sorry but we couldn't find this page. This link should no longer be valid.</h2>
+      <% end %>
       </p>
     </div>
   </div>

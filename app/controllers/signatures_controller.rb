@@ -53,7 +53,7 @@ class SignaturesController < ApplicationController
         solicitation_id: params_signature[:solicitation_id]
       )
     else
-      redirect_to signature_error_path
+      redirect_to signature_error_path, notice: respost.error.split(': ')[1] + '. Contact the Call Center.'
     end
   end
 

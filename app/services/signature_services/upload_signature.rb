@@ -15,7 +15,7 @@ module SignatureServices
         )
         OpenStruct.new({success?: true, signature: @signature})
       rescue => exception
-        OpenStruct.new({success?: false, error: 'UploadSignature#call: Failed to update data'})
+        OpenStruct.new({success?: false, error: 'UploadSignature#call: Failed to Update Signature'})
       end
     end
   end

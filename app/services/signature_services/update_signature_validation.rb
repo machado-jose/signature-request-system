@@ -11,11 +11,10 @@ module SignatureServices
       if @signature_image.empty? ^ @justification.empty?
         signature = signature_exists?
         if signature_is_closed?(signature)
-          handle_error('UpdateSignatureValidation#call: Signature has already been completed')
+          return handle_error('UpdateSignatureValidation#call: Signature has already been completed')
         end
         unless @signature_image.empty?
-          respost = SignatureServices::UploadSignature.new(@signature_image, signature).call
-          respost
+          return SignatureServices::UploadSignature.new(@signature_image, signature).call
         end
       else
         handle_error('UpdateSignatureValidation#call: Or signature_image field or justification field must filled.')
