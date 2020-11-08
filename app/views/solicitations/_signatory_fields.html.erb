@@ -1,7 +1,16 @@
-<div class="nested-fields">    
-  <%= f.label :name %><br>    
-  <%= f.text_field :name %>    
-  <%= f.label :email %>   
-  <%= f.text_field :email %>   
-  <%= link_to_remove_association('remover', f)%>
+<div class="nested-fields">
+  <hr>
+  <div class="item form-group">
+    <%= f.label :name, class:"col-form-label col-md-3 col-sm-3 label-align" %>
+    <div class="col-md-6 col-sm-6 ">
+      <%= f.text_field :name, class: "form-control" %>
+    </div>
+  </div>
+  <div class="item form-group">
+    <%= f.label :email, class:"col-form-label col-md-3 col-sm-3 label-align" %>
+    <div class="col-md-6 col-sm-6 ">
+      <%= f.text_field :email, class: "form-control" %>
+    </div>
+    <%= link_to_remove_association('Remove Signatory', f)%>
+  </div>
 </div>

@@ -1,19 +1,3 @@
-<!-- Notice error-->
-<% if notice %>
-  <div class="alert alert-danger alert-dismissible fade show" role="alert">
-    <%= notice %>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>
-<% end %>
-<!-- End Notice error-->
-
-<!-- Button trigger modal -->
-<%= link_to "Download Document", document_download_signature_path(@signature[:id], get_solicitation_id), class:"btn btn-primary" %>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#signature-modal">Sign</button>
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#denial-sign-modal">Deny to Sign</button>
-
 <!-- Signature Modal -->
 <div class="modal fade" id="signature-modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" role="document">
@@ -69,6 +53,37 @@
 </div>
 
 <!-- End denial Sign Modal -->
+
+<div class="jumbotron mb-0 height-total">
+  <h1 class="display-4">Welcome, <%= get_signatory_name %>!</h1>
+  <p class="lead">This page is intended for signing or refusing the requested document.</p>
+  <hr class="my-4">
+  <div class="container">
+    <div class="row justify-content-center">
+      <p>Step 1) Download the document that requires your signature so that you can read it</p>
+    </div>
+    <div class="row justify-content-center">
+      <p class="lead">
+        <%= link_to "Download the Document", document_download_signature_path(get_solicitation_id), class:"btn btn-primary btn-lg" %>
+      </p>
+    </div>
+    <div class="row justify-content-center">
+      <p>Step 2) After reading the document, you can either sign by agreeing to the terms or you can refuse with justification</p>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-auto">
+        <p class="lead">
+          <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#signature-modal" style="width: 148px;">Sign</button>
+        </p>
+      </div>
+      <div class="col-auto">
+        <p class="lead">
+          <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#denial-sign-modal">Deny to Sign</button>
+        </p>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- Form -->
 <%= render partial: 'form' %>

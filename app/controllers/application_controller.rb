@@ -3,6 +3,6 @@ class ApplicationController < ActionController::Base
   layout :select_template
 
   def select_template
-    params[:controller] == 'solicitations' ? 'application' : 'signature_template'
+    params[:controller] == 'solicitations' ? 'application' : 'signature'
   end
 end

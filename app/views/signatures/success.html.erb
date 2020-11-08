@@ -1,1 +1,16 @@
-<h1>Parabéns</h1>
+<div class="jumbotron text-center mb-0 height-total">
+  <h1 class="display-3">Thank You!</h1>
+  <p class="lead"><strong>Your subscription was sent successfully</strong></p>
+  <hr>
+  <p class="lead">You can download the signature and the document...</p>
+  <div class="row justify-content-center">
+    <div class="col-6">
+      <p class="lead">
+        <%= link_to "Download the Signature", signature_image_download_path(params[:signature_image_filename]), class:"btn btn-primary btn-lg" %>
+      </p>
+      <p class="lead">
+        <%= link_to "Download the Document", document_download_signature_path(params[:solicitation_id]), class:"btn btn-primary btn-lg" %>
+      </p>
+    </div>
+  </div>
+</div>
