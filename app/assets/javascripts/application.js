@@ -16,5 +16,5 @@
 //= require fastclick/lib/fastclick
 //= require nprogress/nprogress
 //= require cocoon
-//= require custom_application
+//= require custom_solicitation
 //= require bootstrap-growl-ifightcrime/jquery.bootstrap-growl.min

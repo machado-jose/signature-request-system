@@ -74,6 +74,13 @@ class SignaturesController < ApplicationController
     end
   end
 
+  def image
+    filename = File.basename(params[:filename]) + ".#{params[:format]}"
+    content = "image/png"
+    path = File.join('signatures', filename)
+    download_file(path, filename, content)
+  end
+
   private
 
   def get_signature_params

@@ -23,10 +23,17 @@
             <tbody>
             <% get_signatories(@solicitation.id).each do |signatory| %>
               <% signature = get_signature(signatory.id) %>
+              <% signature_status = get_signature_status(signature) %>
               <tr>
                 <td><%= signatory.name %></td>
                 <td>URL...</td>
-                <td><%= get_signature_status(signature) %></td>
+                <td>
+                  <%= signature_status %>
+                  <% if signature_status == 'Signed' %>
+                    <button type="button" class="btn btn-primary btn-sm ml-2" data-toggle="modal" data-target="#show-status-modal" onclick="showSignature(this)" value=<%= signature.signature_image.url %>><i class="fa fa-eye"></i></button>
+                  <% elsif signature_status == 'Denied' %>
+                  <% end %>
+                </td>
               </tr>
             <% end %>
             </tbody>
@@ -37,3 +44,28 @@
   </div>
 </div>
 <!-- /page content -->
+
+<!-- Modal -->
+<div class="modal fade" id="show-status-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="show-status-label">Status - </h5>
+        <button type="button" id="close-justification-denial" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row justify-content-center">
+          <div class="form-group">
+            <img class="container-signature-image" width="498" height="375">
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- End Modal -->
