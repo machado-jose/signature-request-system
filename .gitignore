@@ -26,4 +26,4 @@
 /public/gentelella
 
 # Ignore Storage
-/storage
+/storage/*
