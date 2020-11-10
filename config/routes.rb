@@ -7,9 +7,10 @@ Rails.application.routes.draw do
   get 'signature/error', to: 'signatures#error', as: 'signature_error'
   get 'signature/success', to: 'signatures#success', as: 'signature_success'
   get 'signature/:signature_token', to: 'signatures#edit', as: 'signature'
-  get 'signature/download/:solicitation_id', to: 'signatures#download_document', as: 'document_download_signature'
-  get 'signature/success/download', to: 'signatures#download_signature_image', as: 'signature_image_download'
   patch 'signature/submit', to: 'signatures#update', as: 'signature_submit'
+
+  get 'download/document/:document_token', to: 'downloads#download_document', as: 'download_document'
+  get 'download/signatures/:signature_token', to: 'downloads#download_signature', as: 'download_signature'
   
   root to: 'solicitations#index'
 end

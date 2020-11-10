@@ -3,7 +3,7 @@ class Signature < ApplicationRecord
   belongs_to :signatory
 
   has_attached_file :signature_image, {
-    :url => "signatures/:hash.:extension",
+    :url => "download/signatures/:hash.:extension",
     :path => "signatures/:hash.:extension",
     :hash_secret => "forestgump"
   }

@@ -30,7 +30,7 @@
                 <td>
                   <%= signature_status %>
                   <% if signature_status == 'Signed' %>
-                    <button type="button" class="btn btn-primary btn-sm ml-2" data-toggle="modal" data-target="#show-status-modal" onclick="showSignature(this)" value="<%= signature.signature_image.url %>"><i class="fa fa-eye"></i></button>
+                    <button type="button" class="btn btn-primary btn-sm ml-2" data-toggle="modal" data-target="#show-status-modal" onclick="showSignature(this)" value="<%= get_signature_url(signature) %>"><i class="fa fa-eye"></i></button>
                   <% elsif signature_status == 'Denied' %>
                     <button type="button" class="btn btn-primary btn-sm ml-2" data-toggle="modal" data-target="#justification-denied-modal" onclick="showJustification(this)" value="<%= signature.justification %>"><i class="fa fa-eye"></i></button>
                   <% end %>

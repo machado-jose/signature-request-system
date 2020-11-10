@@ -14,6 +14,11 @@ module SolicitationsHelper
     end
   end
 
+  def get_signature_url(signature)
+    token = signature.signature_token
+    "http://localhost:3000/download/signatures/" + token
+  end
+
   def get_signatories(solicitation_id)
     Signatory.where(:solicitation_id => solicitation_id).to_a
   end

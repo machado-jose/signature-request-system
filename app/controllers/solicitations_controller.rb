@@ -14,9 +14,9 @@ class SolicitationsController < ApplicationController
   end
 
   def create
-    @solicitation = Solicitation.new(solicitation_params)
-    if @solicitation.save!
-      respost = SignatureServices::CreateSignatures.new(@solicitation.id).call
+    respost = SolicitationServices::CreateSolicitation.new(solicitation_params).call
+    if respost.success?
+      respost = SignatureServices::CreateSignatures.new(respost.solicitation.id).call
       if respost.success?
         redirect_to solicitations_path, flash: {notice_success: 'Solicitation was saved with success!'}
       else
