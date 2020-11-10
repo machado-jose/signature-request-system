@@ -1,7 +1,7 @@
 class SignatureMailer < ApplicationMailer
-  def send_signature_request(signatory, url)
+  def send_signature_request(signatory, new_signature)
     @signatory = signatory
-    @url = url
+    @new_signature = new_signature
     mail(to: @signatory.email, subject: "Signature Request")
   end
 end

@@ -28,16 +28,16 @@
                 <tr>
                   <th scope="row"><%= solicitation.id %></th>
                   <td><%= solicitation.document.original_filename %></td>
-                  <td><%= get_solicitation_status(solicitation.id) %></td>
+                  <td><%= get_solicitation_status(solicitation) %></td>
                   <td><%= solicitation.created_at %></td>
                   <td style="width=100px;">
                     <%= link_to solicitation_path(solicitation), method: :get, 
                         class: "btn btn-primary btn-circle btn-sm" do %>
                       <i class="fa fa-eye"></i>
                     <% end %>
-                    <%= link_to solicitation_path(solicitation), method: :delete, 
+                    <%= link_to solicitation_cancel_path(solicitation), method: :get, 
                         class: "btn btn-danger btn-circle btn-sm", data: {confirm: 'Are you sure?'} do %>
-                      <i class="fa fa-trash"></i>
+                      <i class="fa fa-minus-square"></i>
                     <% end %>
                   </td>
                 </tr>

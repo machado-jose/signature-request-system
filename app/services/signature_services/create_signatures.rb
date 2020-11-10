@@ -19,7 +19,7 @@ module SignatureServices
           new_signature[:signature_token] = signature_token
           new_signature.save!(validate: false)
 
-          SignatureMailer.send_signature_request(signatory, url).deliver_now
+          SignatureMailer.send_signature_request(signatory, new_signature).deliver_now
         end
       rescue => exception
         puts "[X] CreateSignatures#call: #{exception}"

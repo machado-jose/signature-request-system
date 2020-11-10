@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 20201106223844) do
   end
 
   create_table "solicitations", force: :cascade do |t|
+    t.boolean "is_canceled", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "document_file_name"

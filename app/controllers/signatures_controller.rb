@@ -1,11 +1,30 @@
 class SignaturesController < ApplicationController
 
-  def index
-    @signature = signature_valid(params[:signature_token])
-    if @signature.blank?
-      redirect_to signature_error_path
+  def edit
+    respost = AppServices::SignatureTokenValidation.new(params[:signature_token]).call
+    if respost.success?
+      @signature = respost.signature
+      @signature
+    else
+      redirect_to signature_error_path, notice: respost.error
     end
-    @signature
+  end
+
+  def update
+    params_signature = get_signature_params
+    respost = SignatureServices::UpdateSignature.new(params_signature).call
+    if respost.success?
+      if respost.status == 'accept'
+        redirect_to signature_success_path(
+          solicitation_id: params_signature[:solicitation_id],
+          signature_image_filename: respost.signature.signature_image_file_name
+        )
+      else
+        redirect_to signature_success_path
+      end
+    else
+      redirect_to signature_error_path, notice: respost.error.split(': ')[1] + ' Contact the Call Center.'
+    end
   end
 
   def download_document
@@ -57,23 +76,6 @@ class SignaturesController < ApplicationController
   def success
   end
 
-  def submit
-    params_signature = get_signature_params
-    respost = SignatureServices::UpdateSignature.new(params_signature).call
-    if respost.success?
-      if respost.status == 'accept'
-        redirect_to signature_success_path(
-          solicitation_id: params_signature[:solicitation_id],
-          signature_image_filename: respost.signature.signature_image_file_name
-        )
-      else
-        redirect_to signature_success_path
-      end
-    else
-      redirect_to signature_error_path, notice: respost.error.split(': ')[1] + ' Contact the Call Center.'
-    end
-  end
-
   def image
     filename = File.basename(params[:filename]) + ".#{params[:format]}"
     content = "image/png"
@@ -90,10 +92,6 @@ class SignaturesController < ApplicationController
        :solicitation_id, 
        :id
       )
-  end
-
-  def signature_valid(signature_token)
-    Signature.where(:signature_token => signature_token, :is_signed => false, :denied => false)[0]
   end
 
   def download_file(path, filename, content)
