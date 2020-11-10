@@ -24,6 +24,8 @@ ActiveRecord::Schema.define(version: 20201106223844) do
   create_table "signatures", force: :cascade do |t|
     t.integer "solicitation_id", null: false
     t.integer "signatory_id", null: false
+    t.string "url", null: false
+    t.string "signature_token", null: false
     t.boolean "is_signed", default: false
     t.boolean "denied", default: false
     t.text "justification"
@@ -38,7 +40,6 @@ ActiveRecord::Schema.define(version: 20201106223844) do
   end
 
   create_table "solicitations", force: :cascade do |t|
-    t.string "description", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "document_file_name"

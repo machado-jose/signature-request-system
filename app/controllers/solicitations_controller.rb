@@ -20,8 +20,13 @@ class SolicitationsController < ApplicationController
   def create
     @solicitation = Solicitation.new(solicitation_params)
     if @solicitation.save!
-      create_signatures(@solicitation.id)
-      redirect_to solicitations_path, flash: {notice_success: 'Solicitation was saved with success!'}
+      respost = SignatureServices::CreateSignatures.new(@solicitation.id).call
+      if respost.success?
+        redirect_to solicitations_path, flash: {notice_success: 'Solicitation was saved with success!'}
+      else
+        @solicitation.destroy
+        redirect_to solicitations_path, flash: { notice_danger: 'Request submission failed!'}
+      end
     else
       redirect_to solicitations_path, flash: { notice_danger: 'Request submission failed!'}
     end
@@ -43,7 +48,6 @@ class SolicitationsController < ApplicationController
   # Only allow a list of trusted parameters through.
   def solicitation_params
     params.require(:solicitation).permit(
-      :description,
       :document, 
       signatories_attributes: [
         :id, 
@@ -51,14 +55,5 @@ class SolicitationsController < ApplicationController
         :email, 
         :_destroy]
         )
-  end
-
-  def create_signatures(solicitation_id)
-    Signatory.where(solicitation_id: solicitation_id).each do |signatory|
-      new_signature = Signature.new 
-      new_signature[:solicitation_id] = solicitation_id
-      new_signature[:signatory_id] = signatory.id
-      new_signature.save!(validate: false)
-    end
   end
 end

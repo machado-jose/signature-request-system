@@ -1,7 +1,7 @@
 class SignaturesController < ApplicationController
 
   def index
-    @signature = signature_valid(params[:signature_id])
+    @signature = signature_valid(params[:signature_token])
     if @signature.blank?
       redirect_to signature_error_path
     end
@@ -92,8 +92,8 @@ class SignaturesController < ApplicationController
       )
   end
 
-  def signature_valid(signature_id)
-    Signature.where(:id => signature_id, :is_signed => false, :denied => false)[0]
+  def signature_valid(signature_token)
+    Signature.where(:signature_token => signature_token, :is_signed => false, :denied => false)[0]
   end
 
   def download_file(path, filename, content)

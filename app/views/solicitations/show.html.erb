@@ -15,9 +15,9 @@
           <table class="table table-hover">
             <thead>
               <tr>
-                <th>Signatory</th>
-                <th>URL</th>
-                <th>Status</th>
+                <th class="text-center">Signatory</th>
+                <th class="text-center">URL</th>
+                <th class="text-center">Status</th>
               </tr>
             </thead>
             <tbody>
@@ -25,13 +25,14 @@
               <% signature = get_signature(signatory.id) %>
               <% signature_status = get_signature_status(signature) %>
               <tr>
-                <td><%= signatory.name %></td>
-                <td>URL...</td>
+                <td class="text-center"><%= signatory.name %></td>
+                <td class="text-center"><%= signature.url %></td>
                 <td>
                   <%= signature_status %>
                   <% if signature_status == 'Signed' %>
-                    <button type="button" class="btn btn-primary btn-sm ml-2" data-toggle="modal" data-target="#show-status-modal" onclick="showSignature(this)" value=<%= signature.signature_image.url %>><i class="fa fa-eye"></i></button>
+                    <button type="button" class="btn btn-primary btn-sm ml-2" data-toggle="modal" data-target="#show-status-modal" onclick="showSignature(this)" value="<%= signature.signature_image.url %>"><i class="fa fa-eye"></i></button>
                   <% elsif signature_status == 'Denied' %>
+                    <button type="button" class="btn btn-primary btn-sm ml-2" data-toggle="modal" data-target="#justification-denied-modal" onclick="showJustification(this)" value="<%= signature.justification %>"><i class="fa fa-eye"></i></button>
                   <% end %>
                 </td>
               </tr>
@@ -45,12 +46,12 @@
 </div>
 <!-- /page content -->
 
-<!-- Modal -->
+<!-- Modal Signature Image -->
 <div class="modal fade" id="show-status-modal" tabindex="-1" role="dialog" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="show-status-label">Status - </h5>
+        <h5 class="modal-title" id="show-status-label">Signature</h5>
         <button type="button" id="close-justification-denial" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -68,4 +69,31 @@
     </div>
   </div>
 </div>
-<!-- End Modal -->
+<!-- End Modal Signature Image -->
+
+<!-- Justification for refused Modal -->
+
+<div class="modal fade" id="justification-denied-modal" tabindex="-1" role="dialog" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="justification-denied-label">Justification for Refused</h5>
+        <button type="button" id="close-justification-denial" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="row justify-content-center">
+          <div class="form-group">
+            <textarea class="form-control" rows="10" cols="30"></textarea>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- End Justification for refused Modal -->

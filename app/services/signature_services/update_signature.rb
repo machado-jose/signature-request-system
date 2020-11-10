@@ -14,7 +14,7 @@ module SignatureServices
         signature = signature_exists?
         # Checks if the signature request has already been completed
         if signature_is_closed?(signature)
-          return handle_error('UpdateSignatureValidation#call: Signature has already been completed')
+          return handle_error('UpdateSignatureValidation#call: Signature has already been completed.')
         end
         # Update signature
         unless @signature_image.empty?
