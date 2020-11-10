@@ -5,6 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
+ruby '2.6.6'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.4'
@@ -41,6 +42,9 @@ gem "paperclip", "~> 6.0.0"
 
 # Fog
 gem 'fog-local'
+
+# I18n
+gem 'rails-i18n', '~> 5.1' # For 5.0.x, 5.1.x and 5.2.x
 
 #Kaminari
 gem 'kaminari'

@@ -1,24 +1,41 @@
-# README
+# Signature Request System
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This system aims to enable customers and employees to digitally sign company documents.
 
-Things you may want to cover:
+* Ruby version: 2.6.6
+* Rails version: 5.1.4
 
-* Ruby version
+## Models
+* Solicitation
+* Signatory
+* Signature
 
-* System dependencies
+## Controllers
+* Application
+* Solicitations
+* Signatures
+* Downloads
 
-* Configuration
+# Mailers
+* SignatureMailer
 
-* Database creation
+## Services
+### AppServices
+  * CryptSha256
+  * SignatureTokenValidation
+### SignatureServices
+  * CreateSignatures
+  * UpdateSignatures
+  * UploadSignatureImage
+### SolicitationServices
+  * CreateSolicitation
 
-* Database initialization
+## Gems
+* Cocoon
+* Paperclip
+* Fog (local)
+* I18n
+* Kaminari
 
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## Observations
+* The files are being stored in the **storage folder**, at the root of the application.

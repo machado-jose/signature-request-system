@@ -7,6 +7,6 @@ class Signature < ApplicationRecord
     :path => "signatures/:hash.:extension",
     :hash_secret => "forestgump"
   }
-  validates_attachment_content_type :signature_image, content_type: /\Aimage\/.*\z/
+  validates_attachment_content_type :signature_image, content_type: "image/png"
 
 end
