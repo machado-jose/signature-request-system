@@ -1,32 +1,22 @@
 class DownloadsController < ApplicationController
 
   def download_document
-    solicitation = Solicitation.find_by(:document_token => params[:document_token])
-    file = download_file(
-      solicitation.document.path,
-      solicitation.document_file_name,
-      solicitation.document_content_type
-    )
-    send_data file.body.force_encoding('BINARY'), :filename => solicitation.document_file_name, :type => solicitation.document_content_type, :disposition => "inline"
-    # begin
-    #   solicitation = Solicitation.find_by(:document_token => params[:document_token])
-    #   file = download_file(
-    #     solicitation.document.path,
-    #     solicitation.document_file_name,
-    #     solicitation.document_content_type
-    #   )
-    #   File.open(file, 'r') do |f|
-    #     send_data f.read.force_encoding('BINARY'), :filename => solicitation.document_file_name, :type => solicitation.document_content_type, :disposition => "inline"
-    #   end
-    #   File.delete(file)
-    # rescue ActionController::MissingFile, ActiveRecord::RecordNotFound => exception
-    #   puts "[X] Error in signatures#download_file: #{exception}"
-    #   url = Signature.find(params[:signature_id])
-    #   redirect_to url, notice: 'Error while downloading. Send an email to the Call Center for any clarification'
-    # rescue => exception
-    #   puts "[X] Error in signatures#download_file: #{exception}"
-    #   redirect_to signature_error_path
-    # end
+    begin
+      solicitation = Solicitation.find_by(:document_token => params[:document_token])
+      file = download_file(
+        solicitation.document.path,
+        solicitation.document_file_name,
+        solicitation.document_content_type
+      )
+      send_data file.body.force_encoding('BINARY'), :filename => solicitation.document_file_name, :type => solicitation.document_content_type, :disposition => "inline"
+    rescue ActionController::MissingFile, ActiveRecord::RecordNotFound => exception
+      puts "[X] Error in signatures#download_file: #{exception}"
+      url = Signature.find(params[:signature_id])
+      redirect_to url, notice: 'Error while downloading. Send an email to the Call Center for any clarification'
+    rescue => exception
+      puts "[X] Error in signatures#download_file: #{exception}"
+      redirect_to signature_error_path
+    end
   end
 
   def download_signature
